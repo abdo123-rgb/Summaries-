@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>ملخصات | شبكات الحاسب - المرجع الشامل</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        :root {
+            --bg-dark: #0a0a0f;
+            --bg-card: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --neon-purple: #a855f7;
+            --neon-blue: #3b82f6;
+            --gradient-1: linear-gradient(135deg, #a855f7 0%, #3b82f6 100%);
+            --gradient-2: linear-gradient(135deg, #f97316 0%, #ec4899 100%);
+        }
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.5;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            pointer-events: none;
+        }
+        .gradient-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3;
+            animation: float 20s infinite ease-in-out;
+        }
+        .orb-1 { width: 600px; height: 600px; background: var(--neon-purple); top: -200px; right: -150px; }
+        .orb-2 { width: 500px; height: 500px; background: var(--neon-blue); bottom: -150px; left: -100px; animation-delay: -7s; }
+        .orb-3 { width: 400px; height: 400px; background: #ec4899; top: 60%; right: 40%; animation-delay: -14s; }
+        @keyframes float {
+            0%, 100% { transform: translate(0,0) scale(1); }
+            33% { transform: translate(30px,-50px) scale(1.1); }
+            66% { transform: translate(-20px,20px) scale(0.9); }
+        }
+        .glass-nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(16px);
+            background: rgba(15, 15, 20, 0.6);
+            border: none;
+            border-bottom: 1px solid var(--glass-border);
+            width: 100%;
+            padding: 0;
+        }
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: white;
+            cursor: pointer;
+        }
+        .logo-icon {
+            background: var(--gradient-1);
+            width: 48px;
+            height: 48px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+        }
+        .logo-text {
+            font-weight: 700;
+            font-size: 1.6rem;
+        }
+        .nav-links {
+            display: flex;
+            gap: 32px;
+        }
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.2rem;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+        .nav-links a.active, .nav-links a:hover {
+            color: white;
+        }
+        header {
+            text-align: center;
+            padding: 30px 0 20px;
+        }
+        .badge {
+            background: rgba(168,85,247,0.15);
+            color: var(--neon-purple);
+            padding: 4px 14px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin-bottom: 12px;
+        }
+        header h1 {
+            font-size: 2.3rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+        .gradient-text {
+            background: var(--gradient-2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        header p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .glass-controls {
+            display: flex;
+            gap: 16px;
+            margin: 20px 0 30px;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 16px 20px;
+        }
+        .search-box {
+            flex: 2;
+            min-width: 200px;
+            display: flex;
+            align-items: center;
+            background: rgba(255,255,255,0.05);
+            border-radius: 40px;
+            padding: 10px 18px;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        .search-box i {
+            color: var(--neon-purple);
+            margin-left: 12px;
+            font-size: 1rem;
+        }
+        .search-box input {
+            background: transparent;
+            border: none;
+            color: white;
+            width: 100%;
+            outline: none;
+            font-size: 0.95rem;
+        }
+        .filter-box select {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 40px;
+            padding: 10px 18px;
+            color: white;
+            font-size: 0.95rem;
+            cursor: pointer;
+        }
+        .view-toggle {
+            display: flex;
+            gap: 8px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 40px;
+            padding: 5px;
+        }
+        .view-toggle button {
+            padding: 8px 20px;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.2s;
+        }
+        .view-toggle button.active {
+            background: var(--gradient-1);
+            color: white;
+        }
+        #summariesContainer {
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+        .view-transition {
+            opacity: 0;
+            transform: translateY(8px);
+        }
+        .cards-view {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 28px;
+            align-items: stretch;
+        }
+        .card, .material-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 28px;
+            padding: 22px;
+            transition: transform 0.2s ease, border 0.2s;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            cursor: pointer;
+        }
+        .card:hover, .material-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(168,85,247,0.5);
+        }
+        .material-badge {
+            background: var(--gradient-1);
+            padding: 4px 14px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 12px;
+        }
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .card-header i {
+            font-size: 1.5rem;
+            color: var(--neon-purple);
+        }
+        .card h3, .material-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+        .preview {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+            line-height: 1.5;
+            flex: 1;
+        }
+        .card button, .material-card button {
+            width: 100%;
+            background: var(--gradient-1);
+            border: none;
+            padding: 10px;
+            border-radius: 40px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.15s;
+            margin-top: auto;
+        }
+        .card button:hover, .material-card button:hover {
+            opacity: 0.85;
+            transform: scale(0.98);
+        }
+        .flashcards-view {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 28px;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        .flashcard {
+            width: 300px;
+            background: transparent;
+            perspective: 1000px;
+            cursor: pointer;
+            transition: height 0.3s ease;
+            height: auto;
+        }
+        .flashcard-inner {
+            position: relative;
+            width: 100%;
+            transition: transform 0.5s ease;
+            transform-style: preserve-3d;
+        }
+        .flashcard.flipped .flashcard-inner {
+            transform: rotateY(180deg);
+        }
+        .flashcard-front, .flashcard-back {
+            width: 100%;
+            backface-visibility: hidden;
+            border-radius: 28px;
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            box-sizing: border-box;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+        .flashcard-front {
+            background: var(--gradient-1);
+            color: white;
+            text-align: center;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+        .flashcard-back {
+            background: rgba(15,15,20,0.95);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            transform: rotateY(180deg);
+            position: absolute;
+            top: 0;
+            left: 0;
+            text-align: right;
+            justify-content: flex-start;
+        }
+        .flashcard-front .material-badge {
+            background: rgba(255,255,255,0.2);
+            margin-bottom: 12px;
+        }
+        .flashcard-front i {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        .flashcard-back div {
+            font-size: 0.85rem;
+            line-height: 1.55;
+            color: var(--text-secondary);
+            width: 100%;
+        }
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        .modal-content {
+            background: rgba(20,20,28,0.95);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 28px;
+            padding: 32px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            animation: fadeInUp 0.25s ease;
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .modal-header h2 {
+            font-size: 1.5rem;
+            margin: 0;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .close-btn {
+            cursor: pointer;
+            font-size: 2rem;
+            color: rgba(255,255,255,0.6);
+            transition: 0.2s;
+            line-height: 1;
+            background: none;
+            border: none;
+            padding: 0;
+        }
+        .close-btn:hover {
+            color: white;
+        }
+        .modal-body {
+            color: var(--text-secondary);
+            line-height: 1.65;
+        }
+        .no-results {
+            text-align: center;
+            padding: 50px;
+            background: var(--bg-card);
+            border-radius: 28px;
+            font-size: 1.1rem;
+        }
+        footer {
+            text-align: center;
+            padding: 30px 0 25px;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            margin-top: 50px;
+            border-top: 1px solid var(--glass-border);
+        }
+        @media (max-width: 768px) {
+            .container { padding: 0 16px; }
+            .glass-controls { flex-direction: column; align-items: stretch; gap: 12px; }
+            .view-toggle { justify-content: center; }
+            header h1 { font-size: 1.8rem; }
+            .flashcard { width: 280px; }
+            .cards-view { gap: 20px; }
+            .nav-container { flex-direction: column; gap: 12px; }
+            .logo-text { font-size: 1.3rem; }
+            .nav-links { gap: 20px; }
+            .nav-links a { font-size: 1rem; }
+            .modal-content { padding: 24px; }
+        }
+    </style>
+</head>
+<body>
+<div class="bg-animation">
+    <div class="gradient-orb orb-1"></div>
+    <div class="gradient-orb orb-2"></div>
+    <div class="gradient-orb orb-3"></div>
+</div>
+
+<nav class="glass-nav">
+    <div class="nav-container">
+        <div class="logo" id="homeLogoBtn">
+            <span class="logo-icon"><i class="fas fa-layer-group"></i></span>
+            <span class="logo-text">ملخصات</span>
+        </div>
+        <div class="nav-links">
+            <a id="homeNavBtn" class="active">الرئيسية</a>
+            <a>ملخصات</a>
+        </div>
+    </div>
+</nav>
+
+<header>
+    <div class="container">
+        <span class="badge">⚡ شبكات الحاسب</span>
+        <h1>ملخصات <span class="gradient-text">بطريقة مختلفة</span></h1>
+        <p>اختر المادة ثم تصفح الملخصات التفاعلية</p>
+    </div>
+</header>
+
+<main class="container">
+    <div class="glass-controls">
+        <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchInput" placeholder="ابحث عن مادة أو ملخص...">
+        </div>
+        <div class="filter-box">
+            <select id="subjectFilter">
+                <option value="all">كل المواد</option>
+            </select>
+        </div>
+        <div class="view-toggle">
+            <button class="active" data-view="cards"><i class="fas fa-th-large"></i> بطاقات</button>
+            <button data-view="flashcards"><i class="fas fa-clone"></i> فلاش كارد</button>
+        </div>
+    </div>
+
+    <div id="summariesContainer" class="cards-view"></div>
+</main>
+
+<footer>
+    <p>© 2026 ملخصات – شبكات الحاسب الآلي - تغطية كاملة للمحاضرات</p>
+</footer>
+
+<script>
+    // ---------- البيانات (نفس المحتوى الأصلي مع الحفاظ على الترتيب) ----------
+    const summariesData = [
+        { id:1, material:"شبكات الحاسب", title:"فوائد الشبكات", icon:"fas fa-chalkboard-user", preview:"مشاركة الموارد، الاتصالات، الأمان، مجموعات العمل",
+            fullContent: `<strong><i class="fas fa-share-alt"></i> فوائد الشبكات:</strong><br>
+            <strong>1. مشاركة الموارد:</strong> طابعات، أقراص صلبة، برامج.<br>
+            <strong>2. الاتصالات:</strong> بريد إلكتروني، محادثة فورية، مؤتمرات فيديو.<br>
+            <strong>3. مجموعات العمل:</strong> تنظيم مستخدمين للعمل على نفس الملفات مع صلاحيات.<br>
+            <strong>4. توفير البرمجيات:</strong> نسخ مجانية للطلاب (مثل 365).<br>
+            <strong>5. الأمان (Security):</strong> تحديد مساحات عمل خاصة لكل مستخدم.<br>
+            <strong>6. مجالات الاستخدام:</strong> التعليم، الترفيه، التجارة الإلكترونية، البحث، التواصل الاجتماعي.` },
+        { id:2, material:"شبكات الحاسب", title:"الند للند (Peer-to-Peer)", icon:"fas fa-users", preview:"تساوي الأجهزة في الحقوق، لا يوجد خادم مركزي",
+            fullContent: `<strong><i class="fas fa-equals"></i> خصائص شبكة الند للند:</strong><br>
+            • لا يوجد خادم (Server) متخصص: كل جهاز يعمل كخادم وعميل.<br>
+            • مشاركة الموارد: طابعات وملفات بين الأجهزة.<br>
+            • عدد محدود: مثالية للمجموعات حتى 10 أجهزة.<br>
+            • مناسبة للمنازل والمكاتب الصغيرة.<br>
+            • سهولة التركيب والتكلفة المنخفضة.` },
+        { id:3, material:"شبكات الحاسب", title:"خادم / عميل (Client/Server)", icon:"fas fa-server", preview:"خادم مركزي يخدم الأجهزة (العملاء)",
+            fullContent: `<strong><i class="fas fa-star-of-life"></i> خصائص Client/Server:</strong><br>
+            • خادم مركزي يدير الشبكة ويستقبل الطلبات (Requests).<br>
+            • ميزات: نسخ احتياطي مركزي (Backup) - مثل نظام ابن الهيثم بجامعة بنها.<br>
+            • قدرة استيعابية: آلاف الأجهزة دون ضعف بالأداء.<br>
+            • سرعة عالية: عمل في اتجاهين (Full Duplex).<br>
+            • الأمان: يحتاج برامج حماية متطورة لأن الخادم هدف للاختراق.` },
+        { id:4, material:"شبكات الحاسب", title:"LAN - الشبكة المحلية", icon:"fas fa-building", preview:"تغطي منطقة محدودة: بيت، مبنى، حرم جامعي",
+            fullContent: `<strong><i class="fas fa-map-marker-alt"></i> خصائص LAN:</strong><br>
+            • نطاق جغرافي: داخل سور واحد (جامعة القاهرة أو عين شمس مثلاً).<br>
+            • عدد الأجهزة: من 2 إلى 500 جهاز.<br>
+            • إدارة مركزية: يوجد مدير شبكة يتحكم في الصلاحيات.<br>
+            • سرعة عالية جداً (جيجابت/ثانية).<br>
+            • تكلفة منخفضة نسبياً.` },
+        { id:5, material:"شبكات الحاسب", title:"MAN - الشبكة الإقليمية", icon:"fas fa-city", preview:"تربط شبكات محلية في مدينة كاملة حتى 50 كم",
+            fullContent: `<strong><i class="fas fa-charging-station"></i> خصائص MAN:</strong><br>
+            • نطاق جغرافي: من 5 إلى 50 كيلومتر (مدينة أو محافظة).<br>
+            • طريقة التكوين: مجموعة شبكات LAN مرتبطة معاً.<br>
+            • تستخدمها شركات الاتصالات والجامعات المتفرعة.<br>
+            • سرعة أقل من LAN ولكنها تغطي مساحة أكبر.` },
+        { id:6, material:"شبكات الحاسب", title:"WAN - الشبكة الواسعة", icon:"fas fa-globe", preview:"تغطي قارات ودول (مثال: الإنترنت)",
+            fullContent: `<strong><i class="fas fa-globe-americas"></i> خصائص WAN:</strong><br>
+            • نطاق جغرافي: دول وقارات (أكثر من 100 كم).<br>
+            • لا توجد إدارة مركزية موحدة (مثل الإنترنت).<br>
+            • تربط شبكات LAN و MAN معاً.<br>
+            • تستخدم كابلات تحت المحيطات وأقمار صناعية.<br>
+            • أبطأ سرعة بسبب المسافات الطويلة.` },
+        { id:7, material:"شبكات الحاسب", title:"PAN - الشبكة الشخصية", icon:"fas fa-user", preview:"ربط أجهزة خاصة بشخص واحد في نطاق محدود",
+            fullContent: `<strong><i class="fas fa-bluetooth"></i> تعريف PAN:</strong><br>
+            • تغطي مساحة شخصية جداً (مترين إلى 10 أمتار).<br>
+            • أمثلة: ربط هاتف بسماعة بلوتوث، ربط لابتوب بجهاز لوحي.<br>
+            • تقنيات: Bluetooth، Zigbee، NFC.<br>
+            • استخدام يومي في المنزل أو المكتب الشخصي.` },
+        { id:8, material:"شبكات الحاسب", title:"Bus Topology (الخطية)", icon:"fas fa-grip-lines", preview:"خط واحد (باكيون) وجميع الأجهزة عليه",
+            fullContent: `<strong><i class="fas fa-road"></i> الشبكة الخطية (Bus):</strong><br>
+            • الشكل: خط مستقيم (كابل واحد ممتد).<br>
+            • طريقة العمل: إشارة تمر على جميع الأجهزة، والجهاز المقصود يلتقطها.<br>
+            • بروتوكول CSMA/CD لمنع التصادم.<br>
+            • المزايا: سهلة ورخيصة، إضافة الأجهزة سهلة.<br>
+            • العيوب: بطيئة عند كثرة الأجهزة، تعطل الكابل الرئيسي يوقف الشبكة بالكامل.` },
+        { id:9, material:"شبكات الحاسب", title:"Ring Topology (الحلقية)", icon:"fas fa-circle", preview:"دائرة مغلقة، البيانات تنتقل في اتجاه واحد",
+            fullContent: `<strong><i class="fas fa-ring"></i> الشبكة الحلقية (Ring):</strong><br>
+            • الشكل: دائرة مغلقة (البداية متصلة بالنهاية).<br>
+            • طريقة العمل: تمر البيانات في اتجاه واحد (أو اتجاهين في الأنواع المطورة).<br>
+            • كل جهاز يعيد إرسال الإشارة للجهاز التالي.<br>
+            • المزايا: أداء منتظم، سهولة توقع زمن الوصول.<br>
+            • العيوب: عطل جهاز واحد قد يعطل الحلقة (يوجد حلول مثل الحلقة المزدوجة).` },
+        { id:10, material:"شبكات الحاسب", title:"Star Topology (النجمية)", icon:"fas fa-star", preview:"نقطة مركزية (سويتش/هاب) تتصل بها كل الأجهزة",
+            fullContent: `<strong><i class="fas fa-star-of-life"></i> الشبكة النجمية (Star):</strong><br>
+            • الشكل: جهاز مركزي (Hub أو Switch) وكل الأجهزة متصلة به بكابل منفصل.<br>
+            • المزايا: سهولة اكتشاف الأعطال، إضافة أو حذف أجهزة دون تعطيل الشبكة، أمان أفضل.<br>
+            • العيوب: لو تعطل الجهاز المركزي تتعطل الشبكة بالكامل، تكلفة كابلات أعلى.<br>
+            • الأكثر استخداماً في الشبكات المنزلية وأقسام الشركات.` },
+        { id:11, material:"شبكات الحاسب", title:"Hybrid (المختلطة)", icon:"fas fa-project-diagram", preview:"خليط من Bus, Ring, Star في شبكة واحدة",
+            fullContent: `<strong><i class="fas fa-blender"></i> الشبكة المختلطة (Hybrid):</strong><br>
+            • تجمع بين نوعين أو أكثر من التضاريس (مثل نجمة + خطية).<br>
+            • تستخدم في المؤسسات الكبيرة التي تحتاج أقساماً متنوعة.<br>
+            • مزايا: مرونة عالية، قابلية للتوسع، أداء محسن.<br>
+            • عيوب: تصميم معقد، تكلفة أعلى، إدارة أصعب.` },
+        { id:12, material:"شبكات الحاسب", title:"الشبكات اللاسلكية", icon:"fas fa-wifi", preview:"أنواعها، مميزات وعيوب، تقنيات",
+            fullContent: `<strong><i class="fas fa-check-circle" style="color: #22c55e;"></i> مميزات:</strong><br>• سهولة التركيب وحرية التنقل<br>• مرونة عالية<br><br><strong><i class="fas fa-times-circle" style="color: #ef4444;"></i> عيوب:</strong><br>• تداخل الإشارات وسهولة الاختراق<br>• نطاق تغطية محدود<br><br><strong><i class="fas fa-network-wired"></i> التقنيات:</strong><br>• Bluetooth (قصيرة)<br>• Wi-Fi (الأكثر انتشاراً)<br>• WiMAX (مسافات طويلة للأجهزة المتحركة)` },
+        { id:13, material:"شبكات الحاسب", title:"وسائط سلكية - Twisted Pair", icon:"fas fa-plug", preview:"أزواج مفتوحة من الأسلاك النحاسية",
+            fullContent: `<strong><i class="fas fa-tape"></i> الأزواج المفتوحة (Twisted Pair):</strong><br>
+            • نوعان: UTP (غير محمي) و STP (محمي).<br>
+            • يستخدم في شبكات الهاتف وشبكات الحاسب (Cat5, Cat6).<br>
+            • الوصلة المستقيمة (Straight): لتوصيل أجهزة مختلفة (مثل كمبيوتر بسويتش).<br>
+            • الوصلة المعكوسة (Cross-over): لتوصيل جهازين متشابهين (كمبيوتر بكمبيوتر).<br>
+            • أقصى مسافة 100 متر.` },
+        { id:14, material:"شبكات الحاسب", title:"كابل محوري (Coaxial)", icon:"fas fa-broadcast-tower", preview:"مثل كابل الدش، يستخدم للتلفزيون والإنترنت قديماً",
+            fullContent: `<strong><i class="fas fa-satellite-dish"></i> الكابل المحوري:</strong><br>
+            • التركيب: قلب نحاسي، عازل، شبكة معدنية (Shield)، غطاء خارجي.<br>
+            • أنواع: Thinnet (رفيع - 185 متر) و Thicknet (سميك - 500 متر).<br>
+            • موصلات BNC، T-Connector، Terminator.<br>
+            • يستخدم حالياً في شبكات التلفزيون الكبلي وبعض التطبيقات القديمة.` },
+        { id:15, material:"شبكات الحاسب", title:"الألياف الضوئية (Fiber Optics)", icon:"fas fa-fiber", preview:"شعيرات زجاجية تنقل الضوء بسرعات هائلة",
+            fullContent: `<strong><i class="fas fa-lightbulb"></i> مميزات الألياف الضوئية:</strong><br>
+            • مسافات بعيدة جداً (كيلومترات) وسرعات هائلة (تيرابت/ثانية).<br>
+            • مناعة تامة ضد التداخل الكهرومغناطيسي.<br>
+            • يصعب التنصت عليها (أمان عالي).<br>
+            • عيوب: تكلفة عالية، تركيب دقيق، كسر سهل.<br>
+            • تستخدم في البنية التحتية للإنترنت وشبكات WAN.` },
+        { id:16, material:"شبكات الحاسب", title:"أجهزة الربط - Hub & Switch", icon:"fas fa-exchange-alt", preview:"الفرق بين الـ Hub والـ Switch",
+            fullContent: `<strong><i class="fas fa-grip-horizontal"></i> Hub (الموزع):</strong><br>• يرسل البيانات لكل الأجهزة (Broadcast).<br>• يقسم السرعة على الأجهزة.<br>• يعمل بالطبقة الفيزيائية.<br><br><strong><i class="fas fa-code-branch"></i> Switch (المبدل):</strong><br>• يرسل لجهاز محدد فقط (باستخدام MAC Address).<br>• سرعة كاملة لكل جهاز.<br>• يتعلم العناوين تلقائياً.<br>• طرق النقل: Cut-through (سريع) و Store-and-Forward (آمن ودقيق).` },
+        { id:17, material:"شبكات الحاسب", title:"Router (الموجه)", icon:"fas fa-network-wired", preview:"يربط بين شبكات مختلفة، يعتمد على IP",
+            fullContent: `<strong><i class="fas fa-route"></i> وظائف الراوتر:</strong><br>
+            • يربط بين شبكات مختلفة تماماً (مثل ربط شبكتك بالإنترنت).<br>
+            • يختار أفضل مسار للبيانات.<br>
+            • يخزن أسماء المستخدمين وكلمات المرور.<br>
+            • أداؤه لا يتأثر بزيادة الأجهزة.<br>
+            <strong><i class="fas fa-exclamation-triangle"></i> عيوبه:</strong><br>• يحتاج خبرة في الإعداد، تكلفة أعلى من السويتش.<br>
+            <strong>الخلاصة:</strong> Hub يرسل للكل، Switch يرسل لجهاز محدد، Router يربط شبكات مختلفة.` },
+        { id:18, material:"شبكات الحاسب", title:"Gateway (البوابة)", icon:"fas fa-door-open", preview:"تربط شبكتين مختلفتين وتترجم البروتوكولات",
+            fullContent: `<strong><i class="fas fa-exchange-alt"></i> تعريف البوابة:</strong><br>
+            • جهاز أو برنامج يربط شبكات مختلفة ويعمل كمترجم بروتوكولات.<br>
+            • آلية العمل: جهازك ← بوابتك ← إنترنت ← بوابة خارجية ← بحث ← إرجاع النتائج.<br>
+            • أنواعها: Address Gateway، Protocol Gateway، External/Internal Gateway.<br>
+            • مزايا: أمان عالٍ، ربط شبكات غير متجانسة.` },
+        { id:19, material:"شبكات الحاسب", title:"Bridge (الجسر)", icon:"fas fa-code-branch", preview:"يربط شبكتين ويجعلهما شبكة واحدة",
+            fullContent: `<strong><i class="fas fa-bridge"></i> أنواع الجسور:</strong><br>
+            • Transport Bridge: ينقل نوع واحد من البيانات.<br>
+            • Mixed-Media Bridge: ينقل فيديو، صوت، نص (أبطأ لكن متعدد).<br>
+            • Local Bridge: ربط شبكات داخلية بنفس المكان.<br>
+            • Remote Bridge: ربط شبكات متباعدة جغرافيا.<br>
+            • يساعد في تقسيم الحمل (Load balancing) وتقليل التصادمات.` },
+        { id:20, material:"شبكات الحاسب", title:"Access Point & NIC", icon:"fas fa-wifi", preview:"نقطة الوصول وكارت الشبكة",
+            fullContent: `<strong><i class="fas fa-broadcast-tower"></i> Access Point (نقطة الوصول):</strong><br>
+            • يوسع نطاق الإشارة اللاسلكية.<br>
+            • يعمل بنظام Half Duplex ويقسم السرعة.<br>
+            <strong><i class="fas fa-microchip"></i> NIC (كارت الشبكة):</strong><br>
+            • يحول البيانات من رقمية إلى تناظرية (والعكس).<br>
+            • لكل كارت عنوان فيزيائي فريد (MAC Address) عالمي.<br>
+            • ضروري لأي جهاز للاتصال بالشبكة.` },
+        { id:21, material:"شبكات الحاسب", title:"البروتوكولات - الأساسيات", icon:"fas fa-handshake", preview:"تعريف، آلية العمل، التغليف",
+            fullContent: `<strong><i class="fas fa-book"></i> تعريف البروتوكول:</strong><br>
+            • مجموعة قواعد ومعايير لتبادل البيانات بين الأجهزة.<br>
+            • نظام قياسي تتابعي: بدء اتصال ← تبادل بيانات ← إنهاء اتصال.<br>
+            <strong><i class="fas fa-cogs"></i> آلية العمل:</strong><br>
+            • المرسل: تقسيم البيانات إلى حزم (Packets) ← ترقيم ← تغليف (Encapsulation).<br>
+            • المستقبل: التقاط الحزم ← إعادة التجميع ← فك التغليف (Decapsulation) ← تمرير للبرامج.<br>
+            • تصحيح الأخطاء: إعادة إرسال الحزم المفقودة.` },
+        { id:22, material:"شبكات الحاسب", title:"HTTP / HTTPS", icon:"fas fa-laptop-code", preview:"بروتوكول نقل النص التشعبي، الآمن وغير الآمن",
+            fullContent: `<strong><i class="fas fa-globe"></i> HTTP:</strong><br>
+            • ينقل النصوص والروابط بين المتصفح والخادم.<br>
+            • آلية الطلب: المتصفح (عميل) ← طلب ← سيرفر ← رد ← عرض الصفحة.<br>
+            <strong><i class="fas fa-lock"></i> HTTPS:</strong><br>
+            • النسخة الآمنة (باستخدام SSL/TLS).<br>
+            • تشفير البيانات بالكامل، يمنع الاختراق والتنصت.<br>
+            • إلزامي في البنوك والتسوق الإلكتروني.<br>
+            • يظهر تحذير "اتصال غير آمن" إذا كان الموقع مشبوهاً.` },
+        { id:23, material:"شبكات الحاسب", title:"FTP (نقل الملفات)", icon:"fas fa-file-export", preview:"بروتوكول نقل الملفات بين الأجهزة",
+            fullContent: `<strong><i class="fas fa-upload"></i> خصائص FTP:</strong><br>
+            • ينشئ اتصال تحكم (Control Connection - منفذ 21) دائم.<br>
+            • واتصال بيانات (Data Connection) مؤقت لنقل الملفات.<br>
+            • يقسم الملف الكبير إلى حزم ويعيد تجميعها.<br>
+            • يقوم بترجمة الملفات تلقائياً لتناسب نظام التشغيل المستقبل.<br>
+            • يدعم التشفير عبر SSL لحماية الملفات الحساسة.<br>
+            • يستخدم في تحميل وتنزيل التحديثات والمحتوى.` },
+        { id:24, material:"شبكات الحاسب", title:"Ethernet & LAN Protocols", icon:"fas fa-ethernet", preview:"بروتوكول الشبكات المحلية الأشهر",
+            fullContent: `<strong><i class="fas fa-network-wired"></i> بروتوكول Ethernet:</strong><br>
+            • الأكثر شيوعاً في شبكات LAN.<br>
+            • يعتمد على CSMA/CD (كشف التصادم) في الشبكات الخطية.<br>
+            • يراقب الخط، إذا كان مشغولاً يمنع الإرسال لتجنب التصادم.<br>
+            <strong><i class="fas fa-wifi"></i> Wi-Fi:</strong><br>
+            • النسخة اللاسلكية من Ethernet.<br>
+            • يعمل بترددات 2.4 و 5 جيجاهرتز.<br>
+            • يستخدم CSMA/CA (تجنب التصادم).` },
+        { id:25, material:"شبكات الحاسب", title:"IP, Ports, Protocols", icon:"fas fa-address-card", preview:"عنوان IP، المنفذ، البروتوكول - ثلاثية الاتصال",
+            fullContent: `<strong><i class="fas fa-network-wired"></i> ثلاثية الاتصال:</strong><br>
+            • IP Address: رقم تعريف فريد للجهاز (مثال 192.168.1.1). نوعان: Static (ثابت) و Dynamic (ديناميكي).<br>
+            • Port: منفذ برمجي (0-65535). أمثلة: HTTP:80, FTP:21, SMTP:25, DNS:53.<br>
+            • Protocol: القاعدة التي تشغل العملية (HTTP, FTP, SMTP...).<br>
+            <strong><i class="fas fa-shield-alt"></i> نصيحة أمنية:</strong> أمر MRT في Windows لإزالة البرامج الضارة.` },
+        { id:26, material:"شبكات الحاسب", title:"بروتوكولات متخصصة", icon:"fas fa-microchip", preview:"ICMP, DHCP, NTP, SNMP, ARP وغيرها",
+            fullContent: `<strong><i class="fas fa-list"></i> بروتوكولات متخصصة:</strong><br>
+            • ICMP: أخطاء الشبكة وإحصائيات (مثل Ping).<br>
+            • DHCP: توزيع عناوين IP ديناميكية تلقائياً.<br>
+            • NTP: مزامنة الوقت بين الأجهزة عالمياً.<br>
+            • SNMP: إدارة الشبكات والتنسيق بينها.<br>
+            • ARP: تحويل عنوان IP إلى MAC Address.<br>
+            • BootP: تمكين الجهاز من الإقلاع من الشبكة دون هارد ديسك.<br>
+            • PPTP: إنشاء قناة اتصال خاصة وآمنة بين شبكتين محددتين.` },
+        { id:27, material:"شبكات الحاسب", title:"بروتوكولات البريد الإلكتروني", icon:"fas fa-envelope", preview:"SMTP, POP3, IMAP",
+            fullContent: `<strong><i class="fas fa-paper-plane"></i> بروتوكولات الإيميل:</strong><br>
+            • SMTP (Simple Mail Transfer Protocol): منفذ 25، يستخدم لإرسال البريد من العميل إلى الخادم وبين الخوادم.<br>
+            • POP3 (Post Office Protocol v3): منفذ 110، يستخدم لاستقبال البريد وتحميله إلى الجهاز (يحذف من الخادم غالباً).<br>
+            • IMAP (Internet Message Access Protocol): منفذ 143، يبقي الرسائل على الخادم ويدير المجلدات عن بُعد.<br>
+            • تستخدم مع SSL/TPS للتشفير (منافذ آمنة مختلفة).` }
+    ];
+
+    // استخراج قائمة المواد الفريدة (الآن مادة واحدة فقط لكن الكود قابل للتوسع)
+    const materialsList = [...new Map(summariesData.map(s => [s.material, { name: s.material, icon: "fas fa-graduation-cap" }])).values()];
+    
+    let currentView = 'cards';
+    let isTransitioning = false;
+    let currentMaterial = null; // null = عرض المواد, string = عرض ملخصات مادة معينة
+
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    function populateFilter() {
+        const select = document.getElementById('subjectFilter');
+        select.innerHTML = '<option value="all">كل المواد</option>';
+        materialsList.forEach(m => { select.innerHTML += `<option value="${m.name}">${m.name}</option>`; });
+    }
+
+    // دالة عرض المواد (عند اختيار "كل المواد")
+    function renderMaterials() {
+        const container = document.getElementById('summariesContainer');
+        const searchTerm = document.getElementById('searchInput').value.trim().toLowerCase();
+        
+        let filteredMaterials = materialsList;
+        if (searchTerm !== '') {
+            filteredMaterials = materialsList.filter(m => m.name.toLowerCase().includes(searchTerm));
+        }
+        
+        if (filteredMaterials.length === 0) {
+            container.innerHTML = '<div class="no-results">😔 لا توجد مواد تطابق بحثك</div>';
+            return;
+        }
+        
+        if (currentView === 'cards') {
+            container.className = 'cards-view';
+            container.innerHTML = filteredMaterials.map(m => `
+                <div class="material-card" data-material="${m.name}">
+                    <div class="card-header">
+                        <i class="${m.icon}"></i>
+                        <span class="material-badge">مادة دراسية</span>
+                    </div>
+                    <h3>${escapeHtml(m.name)}</h3>
+                    <p class="preview">اضغط لعرض جميع ملخصات هذه المادة (${summariesData.filter(s => s.material === m.name).length} ملخصاً)</p>
+                    <button class="view-material-btn"><i class="fas fa-book-open"></i> استعراض الملخصات</button>
+                </div>
+            `).join('');
+            
+            document.querySelectorAll('.material-card').forEach(card => {
+                card.addEventListener('click', (e) => {
+                    if (e.target.tagName === 'BUTTON') return;
+                    const materialName = card.dataset.material;
+                    openMaterial(materialName);
+                });
+                const btn = card.querySelector('.view-material-btn');
+                if (btn) {
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const materialName = card.dataset.material;
+                        openMaterial(materialName);
+                    });
+                }
+            });
+        } 
+        else if (currentView === 'flashcards') {
+            // وضع الفلاش كارد للمواد (نفس فكرة البطاقات لكن بشكل فلاش كارد)
+            container.className = 'flashcards-view';
+            container.innerHTML = filteredMaterials.map(m => `
+                <div class="flashcard material-flashcard" data-material="${m.name}">
+                    <div class="flashcard-inner">
+                        <div class="flashcard-front">
+                            <i class="${m.icon}"></i>
+                            <span class="material-badge">مادة دراسية</span>
+                            <h3>${escapeHtml(m.name)}</h3>
+                            <small>اضغط لعرض الملخصات</small>
+                        </div>
+                        <div class="flashcard-back">
+                            <div>تحتوي هذه المادة على ${summariesData.filter(s => s.material === m.name).length} ملخصاً. اضغط للدخول إليها.</div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            
+            document.querySelectorAll('.material-flashcard').forEach(flashcard => {
+                adjustFlashcardHeight(flashcard);
+                flashcard.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const materialName = flashcard.dataset.material;
+                    openMaterial(materialName);
+                });
+            });
+            window.addEventListener('resize', () => {
+                document.querySelectorAll('.flashcard').forEach(f => adjustFlashcardHeight(f));
+            });
+        }
+    }
+
+    // دالة عرض ملخصات مادة محددة
+    function renderSummaries(materialName) {
+        const container = document.getElementById('summariesContainer');
+        const searchTerm = document.getElementById('searchInput').value.trim().toLowerCase();
+        
+        let filtered = summariesData.filter(s => s.material === materialName);
+        if (searchTerm !== '') {
+            filtered = filtered.filter(s => s.title.toLowerCase().includes(searchTerm) || s.preview.toLowerCase().includes(searchTerm));
+        }
+        
+        if (filtered.length === 0) {
+            container.innerHTML = `<div class="no-results">😔 لا توجد ملخصات في "${escapeHtml(materialName)}" تطابق بحثك</div>`;
+            return;
+        }
+        
+        if (currentView === 'cards') {
+            container.className = 'cards-view';
+            container.innerHTML = filtered.map(s => `
+                <div class="card">
+                    <div class="card-header">
+                        <i class="${s.icon}"></i>
+                        <span class="material-badge">${escapeHtml(s.material)}</span>
+                    </div>
+                    <h3>${escapeHtml(s.title)}</h3>
+                    <p class="preview">${escapeHtml(s.preview)}</p>
+                    <button class="view-btn" data-id="${s.id}"><i class="fas fa-eye"></i> عرض الملخص</button>
+                </div>
+            `).join('');
+            document.querySelectorAll('.view-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const id = parseInt(btn.dataset.id);
+                    const sum = summariesData.find(s => s.id === id);
+                    if (sum) showModal(sum.title, sum.fullContent);
+                });
+            });
+        } 
+        else if (currentView === 'flashcards') {
+            container.className = 'flashcards-view';
+            container.innerHTML = filtered.map(s => `
+                <div class="flashcard" data-id="${s.id}">
+                    <div class="flashcard-inner">
+                        <div class="flashcard-front">
+                            <i class="${s.icon}"></i>
+                            <span class="material-badge">${escapeHtml(s.material)}</span>
+                            <h3>${escapeHtml(s.title)}</h3>
+                            <small>اضغط للإجابة</small>
+                        </div>
+                        <div class="flashcard-back">
+                            <div>${s.fullContent}</div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            
+            document.querySelectorAll('.flashcard').forEach(flashcard => {
+                adjustFlashcardHeight(flashcard);
+                flashcard.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    if (flashcard.classList.contains('flipped')) {
+                        flashcard.classList.remove('flipped');
+                        adjustFlashcardHeight(flashcard);
+                    } else {
+                        closeAllOtherFlashcards(flashcard);
+                        flashcard.classList.add('flipped');
+                        adjustFlashcardHeight(flashcard);
+                    }
+                });
+            });
+            window.addEventListener('resize', () => {
+                document.querySelectorAll('.flashcard').forEach(f => adjustFlashcardHeight(f));
+            });
+        }
+    }
+
+    function openMaterial(materialName) {
+        currentMaterial = materialName;
+        // تحديث قيمة الفلتر لتعكس المادة المختارة
+        const filterSelect = document.getElementById('subjectFilter');
+        filterSelect.value = materialName;
+        renderWithTransition();
+    }
+
+    function goToHome() {
+        currentMaterial = null;
+        const filterSelect = document.getElementById('subjectFilter');
+        filterSelect.value = 'all';
+        document.getElementById('searchInput').value = '';
+        renderWithTransition();
+    }
+
+    function adjustFlashcardHeight(flashcard) {
+        const inner = flashcard.querySelector('.flashcard-inner');
+        const front = flashcard.querySelector('.flashcard-front');
+        const back = flashcard.querySelector('.flashcard-back');
+        if (!inner || !front || !back) return;
+        if (flashcard.classList.contains('flipped')) {
+            const backHeight = back.scrollHeight;
+            flashcard.style.height = backHeight + 'px';
+            inner.style.height = backHeight + 'px';
+        } else {
+            const frontHeight = front.scrollHeight;
+            flashcard.style.height = frontHeight + 'px';
+            inner.style.height = frontHeight + 'px';
+        }
+    }
+
+    function closeAllOtherFlashcards(currentCard) {
+        const allCards = document.querySelectorAll('.flashcard');
+        allCards.forEach(card => {
+            if (card !== currentCard && card.classList.contains('flipped')) {
+                card.classList.remove('flipped');
+                adjustFlashcardHeight(card);
+            }
+        });
+    }
+
+    function showModal(title, content) {
+        let modal = document.querySelector('.modal');
+        if (modal) modal.remove();
+        modal = document.createElement('div');
+        modal.className = 'modal';
+        modal.innerHTML = `
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>${escapeHtml(title)}</h2>
+                    <button class="close-btn">&times;</button>
+                </div>
+                <div class="modal-body">${content}</div>
+            </div>
+        `;
+        document.body.appendChild(modal);
+        const closeBtn = modal.querySelector('.close-btn');
+        closeBtn.onclick = () => modal.remove();
+        modal.onclick = (e) => { if (e.target === modal) modal.remove(); };
+    }
+
+    function renderContent() {
+        if (currentMaterial === null) {
+            renderMaterials();
+        } else {
+            renderSummaries(currentMaterial);
+        }
+    }
+
+    function renderWithTransition() {
+        if (isTransitioning) return;
+        const container = document.getElementById('summariesContainer');
+        isTransitioning = true;
+        container.classList.add('view-transition');
+        setTimeout(() => {
+            renderContent();
+            container.classList.remove('view-transition');
+            setTimeout(() => { isTransitioning = false; }, 100);
+        }, 120);
+    }
+
+    function setup() {
+        populateFilter();
+        renderContent();
+        
+        const searchInput = document.getElementById('searchInput');
+        const filterSelect = document.getElementById('subjectFilter');
+        
+        searchInput.addEventListener('input', () => {
+            renderWithTransition();
+        });
+        
+        filterSelect.addEventListener('change', (e) => {
+            const value = e.target.value;
+            if (value === 'all') {
+                currentMaterial = null;
+            } else {
+                // التأكد من وجود المادة في القائمة
+                const exists = materialsList.some(m => m.name === value);
+                if (exists) {
+                    currentMaterial = value;
+                } else {
+                    currentMaterial = null;
+                    filterSelect.value = 'all';
+                }
+            }
+            renderWithTransition();
+        });
+        
+        document.querySelectorAll('.view-toggle button').forEach(btn => {
+            btn.addEventListener('click', function() {
+                if (this.dataset.view === currentView) return;
+                document.querySelectorAll('.view-toggle button').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentView = this.dataset.view;
+                renderWithTransition();
+            });
+        });
+        
+        // زر العودة للرئيسية (اللوجو و رابط الرئيسية)
+        const homeLogo = document.getElementById('homeLogoBtn');
+        const homeNav = document.getElementById('homeNavBtn');
+        if (homeLogo) homeLogo.addEventListener('click', goToHome);
+        if (homeNav) homeNav.addEventListener('click', goToHome);
+    }
+
+    document.addEventListener('DOMContentLoaded', setup);
+</script>
+</body>
+</html>
